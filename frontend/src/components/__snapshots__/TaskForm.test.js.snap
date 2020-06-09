@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TaskForm should render correctly 1`] = `
+<form>
+  <label
+    for="name"
+  >
+    Name
+  </label>
+  <input
+    id="name"
+    name="name"
+    type="text"
+    value=""
+  />
+  <button>
+    Submit
+  </button>
+</form>
+`;
