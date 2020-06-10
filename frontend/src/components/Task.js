@@ -24,12 +24,14 @@ function Task({
       <button
         type="button"
         onClick={handleComplete}
+        data-testid="task-complete"
       >
         Mark as {done ? 'Uncompleted' : 'Completed'}
       </button>
       <button
         type="button"
         onClick={handleDelete}
+        data-testid="task-delete"
       >
         Delete task
       </button>

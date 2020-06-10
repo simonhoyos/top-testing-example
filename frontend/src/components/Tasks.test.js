@@ -4,7 +4,8 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-
+import moxios from 'moxios';
+import { GET_TASKS } from '../store/tasksReducer';
 import Tasks from './Tasks';
 
 const middlewares = [thunk];
@@ -16,7 +17,14 @@ const tasks = [
 ]
 
 describe('Tasks', () => {
-  afterEach(cleanup);
+  beforeEach(() => {
+    moxios.install();
+  });
+
+  afterEach(() => {
+    cleanup();
+    moxios.uninstall();
+  });
 
   it('should render a list of tasks correctly', () => {
       const store = mockStore({
@@ -41,7 +49,7 @@ describe('Tasks', () => {
       }
     });
 
-    const { getByText } = render (
+    const { getByText } = render(
       <Provider store={store}>
         <MemoryRouter>
           <Tasks />
@@ -50,5 +58,34 @@ describe('Tasks', () => {
     );
 
     expect(getByText(/No tasks created yet./)).toBeInTheDocument();
-  })
+  });
+
+  it('should request tasks on mount and dispatch GET_TASKS action', (done) => {
+    const store = mockStore({
+      tasksReducer: {
+        tasks,
+      }
+    });
+
+    const { container } = render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <Tasks />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    moxios.wait(() => {
+      const request = moxios.requests.mostRecent();
+      request.respondWith({
+        status: 200,
+        response: tasks,
+      }).then(() => {
+        const [action] = store.getActions();
+        expect(action.type).toBe(GET_TASKS);
+        expect(action.payload).toMatchObject(tasks);
+        done();
+      });
+    })
+  });
 });
