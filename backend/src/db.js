@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 function db() {
-  const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/tasks';
+  const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/tasks-tests';
 
   const options = {
     useNewUrlParser: true,

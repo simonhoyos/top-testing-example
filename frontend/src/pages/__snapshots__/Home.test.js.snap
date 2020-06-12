@@ -4,6 +4,9 @@ exports[`Home should render correctly 1`] = `
 <div
   class="tasks"
 >
+  <h1>
+    Tasks
+  </h1>
   <p>
     No tasks created yet. Create one 
     <a
