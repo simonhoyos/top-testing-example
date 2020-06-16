@@ -21,7 +21,7 @@ function Create({
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
-      {message && <p>{message}</p>}
+      {message && <p className="success-message">{message}</p>}
     </>
   )
 }

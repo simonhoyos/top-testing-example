@@ -34,11 +34,30 @@ describe('App', () => {
     page.close();
   });
 
-  it('should render home when logged in', async () => {
+  it('should create task and list user tasks', async () => {
     const page = await browser.newPage();
 
-    await page.goto('http://localhost:3000');
+    await page.goto('http://localhost:3000/create');
 
-    await page.waitForSelector('.tasks > h1');
+    await page.waitForSelector('#name');
+    await page.type('#name', 'task 1', { delay: 100 });
+    await page.click('button');
+    await page.waitForSelector('.success-message');
+
+    const message = await page.$eval('.success-message', el => el.innerHTML);
+
+    expect(message).toMatch('Task created successfully');
+
+    await page.reload();
+    await page.type('#name', 'task 2', { delay: 100 });
+    await page.click('button');
+
+    await page.goto('http://localhost:3000');
+    await page.screenshot({ path: './image.png' });
+
+    await page.waitForSelector('.task');
+    const tasks = await page.$$('.task');
+
+    expect(tasks).toHaveLength(2);
   });
 });

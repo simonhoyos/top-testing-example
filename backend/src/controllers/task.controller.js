@@ -16,8 +16,6 @@ module.exports = {
       const { body, user } = req;
       const task = await Task.create({ ...body, user });
 
-      user.tasks.push(task);
-      await user.save();
 
       res.status(200).json(task);
     } catch (error) {
