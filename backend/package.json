@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon server.js",
-    "test": "cross-env MONGO_URI='mongodb://localhost:27017/tasks-test' jest --detectOpenHandles --forceExit --coverage"
+    "test": "cross-env MONGO_URI='mongodb://localhost:27017/tasks-test' SECRET='sdfsdfyuasdf$@#%fsd3274' jest --detectOpenHandles --forceExit --watchAll --coverage"
   },
   "dependencies": {
     "bcrypt": "^4.0.1",

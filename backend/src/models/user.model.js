@@ -10,6 +10,7 @@ const userSchema = new Schema({
     validate: {
       async validator(email) {
         const user = await models.User.findOne({ email });
+        return !user
       },
       message: 'email already exists',
     }
