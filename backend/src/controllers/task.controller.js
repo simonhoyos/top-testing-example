@@ -8,14 +8,13 @@ module.exports = {
 
       res.status(200).json(tasks);
     } catch (error) {
-      res.status(500).json({ message: error.message })
+      res.status(500).json({ message: error.message });
     }
   },
   async create(req, res) {
     try {
       const { body, user } = req;
       const task = await Task.create({ ...body, user });
-
 
       res.status(200).json(task);
     } catch (error) {
