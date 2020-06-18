@@ -8,6 +8,8 @@ describe('user', () => {
     for(let collection in mongoose.connection.collections) {
       await mongoose.connection.collections[collection].deleteMany({});
     }
+
+    const users = await mongoose.models.User.find();
   });
 
   afterAll(async () => {
@@ -35,7 +37,7 @@ describe('user', () => {
 
   it('shouldn\'t signin an user if invalid password', async done => {
     const password = await bcrypt.hash('12345', 8);
-    const user = { email: 'test@test.com', password };
+    const user = { email: 'test4@test.com', password };
     await mongoose.models.User.create(user);
 
     const res = await req(app).post('/signin').send({
